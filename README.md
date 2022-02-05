@@ -38,6 +38,12 @@ Build and push the image, then update the operator deployment manifest.
 
 Example:
 
+* create a project
+
+```sh
+oc new-project custom-domains-operator --display-name "OpenShift Custom Domain Operator"
+```
+
 * deploy manifests
 
 ```sh

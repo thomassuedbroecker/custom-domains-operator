@@ -6,14 +6,16 @@ The public DNS record of this new ingresscontroller can then be used by external
 ### Prerequisites
 
 GVM (GoLang 1.13.6)
-```
+
+```sh
 bash < <(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer)
 gvm install go1.13.6
 gvm use go1.13.6
 ```
 
 Operator-SDK
-```
+
+```sh
 wget https://github.com/operator-framework/operator-sdk/releases/download/v0.16.0/operator-sdk-v0.16.0-x86_64-apple-darwin
 sudo mv operator-sdk-v0.16.0-x86_64-apple-darwin /usr/local/bin/operator-sdk
 sudo chmod a+x /usr/local/bin/operator-sdk
@@ -22,42 +24,46 @@ sudo chmod a+x /usr/local/bin/operator-sdk
 ### Building And Deploying
 
 #### Setup
+
 Create Custom Resource Definition (CRD)
-```
+
+```sh
 oc apply -f deploy/crds/managed.openshift.io_customdomains_crd.yaml
 ```
 
 #### Run locally outside of cluster
-```
+
+```sh
 operator-sdk run --local --namespace ''
 ```
 
 #### Build and Deploy To Cluster
+
 Choose public container registry e.g. 'quay.io/acme'.
 Build and push the image, then update the operator deployment manifest.
 
 Example:
 
-* create a project
+* Create a project
 
 ```sh
 oc new-project custom-domains-operator --display-name "OpenShift Custom Domain Operator"
 ```
 
-* deploy manifests
+* Deploy manifests
 
 ```sh
 oc apply -f deploy/crds/managed.openshift.io_customdomains.yaml
 oc apply -f deploy/
 ```
 
-* build container
+* Build container
 
 ```sh
 make docker-build docker-push
 ```
 
-* update image with image in build output
+* Update image with image in build output
 
 ```sh
 oc set image -n custom-domains-operator deployment/custom-domains-operator custom-domains-operator=quay.io/dustman9000/custom-domains-operator:v0.1.29-a48b301e

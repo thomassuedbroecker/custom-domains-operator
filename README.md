@@ -37,16 +37,25 @@ Choose public container registry e.g. 'quay.io/acme'.
 Build and push the image, then update the operator deployment manifest.
 
 Example:
-```
-# deploy manifests
+
+* deploy manifests
+
+```sh
 oc apply -f deploy/crds/managed.openshift.io_customdomains.yaml
 oc apply -f deploy/
-# build
-make docker-build docker-push
-# update image with image in build output
-oc set image -n openshift-custom-domains-operator deployment/custom-domains-operator custom-domains-operator=quay.io/dustman9000/custom-domains-operator:v0.1.29-a48b301e
 ```
 
+* build container
+
+```sh
+make docker-build docker-push
+```
+
+* update image with image in build output
+
+```sh
+oc set image -n custom-domains-operator deployment/custom-domains-operator custom-domains-operator=quay.io/dustman9000/custom-domains-operator:v0.1.29-a48b301e
+```
 
 ## Testing
 See [TESTING](TESTING.md)

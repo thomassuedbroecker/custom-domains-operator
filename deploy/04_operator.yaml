@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: custom-domains-operator
-  namespace: openshift-custom-domains-operator
+  namespace: custom-domains-operator
 spec:
   replicas: 1
   selector:
@@ -28,7 +28,7 @@ spec:
       serviceAccountName: custom-domains-operator
       containers:
         - name: custom-domains-operator
-          image: REPLACE_ME/custom-domains-operator:latest
+          image: quay.io/tsuedbroecker/custom-domains-operator:v1
           command:
           - custom-domains-operator
           args:

@@ -17,21 +17,35 @@ oc apply -f deploy/crds/managed.openshift.io_customdomains_crd.yaml
 ```
 
 #### Ensure operator is running
+
+```sh
 operator-sdk run --local --namespace ''
+```
+
 OR
-oc create namespace openshift-custom-domains-operator
+
+```sh
+oc create namespace custom-domains-operator
 oc apply -f deploy/
+```
 
 ### Cert Setup
 
 #### Let's Encrypt Notes
 If you do not have a wildcard certificate for the custom domain, you can use Let's Encrypt (certbot) to generate a wildcard certificate.
 
-Install certbot and obtain wildcard cert:
-```
+* Install certbot 
+
+```sh
 brew install certbot
+```
+
+* obtain wildcard cert
+
+```sh
 sudo certbot certonly --manual --preferred-challenges=dns --agree-tos --email=<your-email> -d '*.apps.<domain>'
 ```
+
 Follow instructions to verify domain ownership in Route53 (or other DNS vendor).
 
 ### Add Secret and CustomDomain CR

@@ -82,3 +82,5 @@ tags
 .docker/
 Dockerfile.olm-registry
 saas-custom-domains-operator-bundle
+# pem
+*.pem
